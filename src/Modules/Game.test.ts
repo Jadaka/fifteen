@@ -18,26 +18,38 @@ describe('Game Class', () => {
   });
 
   test('Should initialize with the correct empty coorinates.', () => {
-    expect(game.getEmptyCoordinates()).toEqual([1, 1]);
+    expect(game.getEmptyCoordinate()).toEqual([1, 1]);
   });
 
   test('moveRight should move the empty slot left.', () => {
     game.moveRight();
-    expect(game.getEmptyCoordinates()).toEqual([1, 0]);
+    expect(game.getEmptyCoordinate()).toEqual([1, 0]);
   });
 
   test('moveLeft should move the empty slot left right.', () => {
     game.moveLeft();
-    expect(game.getEmptyCoordinates()).toEqual([1, 2]);
+    expect(game.getEmptyCoordinate()).toEqual([1, 2]);
   });
 
   test('moveUp should move the empty slot down.', () => {
     game.moveUp();
-    expect(game.getEmptyCoordinates()).toEqual([2, 1]);
+    expect(game.getEmptyCoordinate()).toEqual([2, 1]);
   });
 
   test('moveDown should move the empty slot up.', () => {
     game.moveDown();
-    expect(game.getEmptyCoordinates()).toEqual([0, 1]);
+    expect(game.getEmptyCoordinate()).toEqual([0, 1]);
+  });
+
+  test('should call the end callback when game ends.', () => {
+    const onEndedCallback = jest.fn();
+
+    game.onEnd(onEndedCallback);
+    game.moveLeft();
+    game.moveLeft();
+    game.moveUp();
+    game.moveUp();
+
+    expect(onEndedCallback).toHaveBeenCalledTimes(1);
   });
 });
