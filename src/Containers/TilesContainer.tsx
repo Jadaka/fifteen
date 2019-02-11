@@ -1,7 +1,8 @@
 import React, { Component, ReactElement } from 'react';
 import { cloneDeep } from 'lodash';
 
-import Shortcuts from '../utils/Shortcuts';
+import Shortcuts from '../Modules/Shortcuts';
+import Game, { Rows } from '../Modules/Game';
 import Tiles from '../Components/Tiles';
 
 const defaultState = {
@@ -18,27 +19,41 @@ type State = Readonly<typeof defaultState>;
 
 class TilesContainer extends Component<Props, State> {
   shortcuts: Shortcuts
+  game: Game
   state = cloneDeep(defaultState);
 
   constructor(props: any) {
     super(props);
     this.shortcuts = new Shortcuts();
+    this.game = new Game({
+      tiles: Game.generateRandomTiles(),
+    });
+    this.game.onChange(this.onChange);
   }
 
-  upKeyPressed() {
-    console.log('up');
+  onChange = (tiles: Rows): void => {
+    console.log('on change');
+    this.setState({ tiles });
   }
 
-  downKeyPressed() {
-    console.log('down');
+  onEnded = (): void => {
+    console.log('game ended');
   }
 
-  rightKeyPressed() {
-    console.log('right');
+  upKeyPressed = (): void => {
+    this.game.moveUp();
   }
 
-  leftKeyPressed() {
-    console.log('left');
+  downKeyPressed = (): void => {
+    this.game.moveDown();
+  }
+
+  rightKeyPressed = (): void => {
+    this.game.moveRight();
+  }
+
+  leftKeyPressed = (): void => {
+    this.game.moveLeft();
   }
 
   componentDidMount() {

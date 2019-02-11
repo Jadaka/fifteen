@@ -33,10 +33,12 @@ class Shortcuts {
   }
 
   private handleKeyDown = (event:KeyboardEvent) => {
-    event.preventDefault();
     const keyName:string = event.key;
     const handlers:KeyHandlers = this.getKeyHandlers(keyName);
-    handlers.forEach(handler => handler(event));
+    if (handlers.size) {
+      event.preventDefault();
+      handlers.forEach(handler => handler(event));
+    }
   }
 
   private getKeyHandlers(keyName:string): KeyHandlers {
