@@ -4,7 +4,7 @@ export type Tile = number;
 export type Row = Array<Tile>;
 export type Rows = Array<Row>;
 export interface GameState {
-  tiles: Rows
+  rows: Rows
 }
 export type Coordinate = Array<number>
 
@@ -14,8 +14,10 @@ export type Coordinate = Array<number>
  * An instance of game holds the state for one single game.
  */
 class Game {
-  constructor(defaultState: GameState) {
-    this.state = defaultState;
+  constructor(initialRows?: Rows) {
+    this.state = {
+      rows: initialRows || Game.generateRandomRows(),
+    }
     this.emptyPosition = this.findEmptyCoordinates();
   }
   private onChangeCallback: Function = () => {}
@@ -30,7 +32,7 @@ class Game {
     [13, 14, 15, 0],
   ]
 
-  static generateRandomTiles(): Rows {
+  static generateRandomRows(): Rows {
     let values: Array<Tile> = range(0, 16); // 16 non-inclusive
     // Shuffles and groups into subarrays of length 4.
     return chunk(shuffle(values), 4);
@@ -39,27 +41,27 @@ class Game {
   /**
    * isSolvable
    *
-   * Given a 2-d tiles array, detects whether a board is solvable.
+   * Given a 2-d rows array, detects whether a board is solvable.
    *
    * @url https://goo.gl/dowZx3
    */
-  static isSolvable(tiles: Rows): boolean {
-    const flatTiles: Array<Tile> = flatten(tiles);
+  static isSolvable(rows: Rows): boolean {
+    const flatRows: Array<Tile> = flatten(rows);
     let parity: number = 0;
-    let gridWidth: number = Math.sqrt(flatTiles.length);
+    let gridWidth: number = Math.sqrt(flatRows.length);
     let row: number = 0; // the current row we are on
     let blankRow: number = 0; // the row with the blank tile
 
-    for (let i = 0; i < flatTiles.length; i++) {
+    for (let i = 0; i < flatRows.length; i++) {
       if (i % gridWidth === 0) { // advance to next row
         row++;
       }
-      if (flatTiles[i] === 0) { // the blank tile
+      if (flatRows[i] === 0) { // the blank tile
         blankRow = row; // save the row on which encountered
         continue;
       }
-      for (let j = i + 1; j < flatTiles.length; j++){
-        if (flatTiles[i] > flatTiles[j] && flatTiles[j] != 0) {
+      for (let j = i + 1; j < flatRows.length; j++){
+        if (flatRows[i] > flatRows[j] && flatRows[j] != 0) {
             parity++;
         }
       }
@@ -114,21 +116,17 @@ class Game {
 
   private move(newEmptyPosition: Coordinate): void {
     this.swapEmptyPositions(this.emptyPosition, newEmptyPosition);
-    this.onChangeCallback(this.state.tiles);
-    this.checkIfEnded();
+    this.onChangeCallback(this.state.rows);
+    if (this.isSolved()) {
+      this.onEndCallback();
+    }
   }
 
-  private checkIfEnded(): void {
-    if (!this.isBoardCompleted()) return;
-
-    this.onEndCallback();
-  }
-
-  private isBoardCompleted(): boolean {
+  private isSolved(): boolean {
     if (this.emptyPosition[0] !== 3 || this.emptyPosition[1] !== 3) {
       return false;
     }
-    return isEqual(this.state.tiles, Game.solutionRows);
+    return isEqual(this.state.rows, Game.solutionRows);
   }
 
   private swapEmptyPositions(
@@ -144,18 +142,18 @@ class Game {
   }
 
   private getValue([row, col]: Coordinate): Tile {
-    return this.state.tiles[row][col];
+    return this.state.rows[row][col];
   }
 
   private setValue([row, col]: Coordinate, value: Tile): void {
-    this.state.tiles[row][col] = value;
+    this.state.rows[row][col] = value;
   }
 
   private findEmptyCoordinates(): Coordinate {
-    const { tiles } = this.state;
-    for (let i: number = 0; i < tiles.length; i++) {
-      for (let j: number = 0; j < tiles[0].length; j++) {
-        if (tiles[i][j] === 0) {
+    const { rows } = this.state;
+    for (let i: number = 0; i < rows.length; i++) {
+      for (let j: number = 0; j < rows[0].length; j++) {
+        if (rows[i][j] === 0) {
           return [i, j];
         }
       }
