@@ -2,11 +2,11 @@ type KeyHandlers = Set<Function>
 type Events = Map<string, KeyHandlers>
 
 class Shortcuts {
-  events: Events
   constructor() {
     this.events = new Map();
     this.init();
   }
+  private events: Events
 
   public addShortcut(keyName: string, handler: Function): void {
     this.initializeShortcut(keyName);
@@ -28,11 +28,11 @@ class Shortcuts {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  public init() {
+  private init() {
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
-  private handleKeyDown = (event:KeyboardEvent) => {
+  private handleKeyDown = (event: KeyboardEvent): void => {
     const keyName:string = event.key;
     const handlers:KeyHandlers = this.getKeyHandlers(keyName);
     if (handlers.size) {
@@ -41,12 +41,12 @@ class Shortcuts {
     }
   }
 
-  private getKeyHandlers(keyName:string): KeyHandlers {
+  private getKeyHandlers(keyName: string): KeyHandlers {
     const handlers = this.events.get(keyName) || new Set();
     return handlers;
   }
 
-  private initializeShortcut(keyName:string) {
+  private initializeShortcut(keyName: string) {
     if (this.events.has(keyName)) {
       return;
     }

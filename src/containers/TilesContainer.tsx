@@ -20,6 +20,7 @@ class TilesContainer extends Component<Props, State> {
     this.shortcuts = new Shortcuts();
     this.game = new Game();
     this.game.onChange(this.onChange);
+    this.game.onEnd(this.onEnd);
     this.state = {
       rows: this.game.getRows(),
     };
@@ -29,7 +30,7 @@ class TilesContainer extends Component<Props, State> {
     this.setState({ rows });
   }
 
-  onEnded = (): void => {
+  onEnd = (): void => {
     console.log('game ended');
   }
 
