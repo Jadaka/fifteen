@@ -90,12 +90,12 @@ describe('Game Class', () => {
   });
 
   test('static isSolvable() detects unsolvable permutations.', () => {
-    const solvable = [
+    const unsolvable = [
       [1, 2, 3, 4],
       [5, 6, 7, 8],
       [9, 10, 11, 12],
       [13, 15, 14, 0]
     ];
-    expect(Game.isSolvable(solvable)).toBe(false);
+    expect(Game.isSolvable(unsolvable)).toBe(false);
   });
 });
