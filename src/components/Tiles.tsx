@@ -1,7 +1,7 @@
 import React, { Component, StatelessComponent } from 'react';
 import styled from 'styled-components';
 
-import { Rows, Row, Tile } from '../Modules/Game';
+import { Rows, Row, Tile } from '../modules/Game';
 
 const Tiles_ = styled.div`
   background: #bbb;

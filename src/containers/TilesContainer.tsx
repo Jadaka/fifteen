@@ -1,9 +1,9 @@
 import React, { Component, ReactElement } from 'react';
 import { cloneDeep } from 'lodash';
 
-import Shortcuts from '../Modules/Shortcuts';
-import Game, { Rows } from '../Modules/Game';
-import Tiles from '../Components/Tiles';
+import Shortcuts from '../modules/Shortcuts';
+import Game, { Rows } from '../modules/Game';
+import Tiles from '../components/Tiles';
 
 type Props = {};
 interface State {

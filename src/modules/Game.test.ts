@@ -64,9 +64,11 @@ describe('Game Class', () => {
     for (let i = 0; i < 50; i++) {
       instances.push(new Game());
     }
-    expect(every(instances, (instance: Game) => {
-      return Game.isSolvable(instance.getRows());
-    }));
+
+    const isEveryInstanceSolvable = every(instances, (instance: Game) => (
+      Game.isSolvable(instance.getRows())
+    ));
+    expect(isEveryInstanceSolvable).toBe(true);
   });
 
   test('static generateRandomRows() should create random rows.', () => {
@@ -86,6 +88,7 @@ describe('Game Class', () => {
       [9, 10, 11, 12],
       [13, 14, 15, 0]
     ];
+
     expect(Game.isSolvable(solvable)).toBe(true);
   });
 
@@ -96,6 +99,7 @@ describe('Game Class', () => {
       [9, 10, 11, 12],
       [13, 15, 14, 0]
     ];
+
     expect(Game.isSolvable(unsolvable)).toBe(false);
   });
 });

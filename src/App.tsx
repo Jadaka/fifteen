@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import Game from './Components/Game';
+import Game from './components/Game';
 
 const AppContainer = styled.div`
   height: 100%;
