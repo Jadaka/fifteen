@@ -1,4 +1,4 @@
-import { cloneDeep, isEqual } from 'lodash';
+import { cloneDeep, isEqual, every } from 'lodash';
 
 import Game, { Rows } from './Game';
 
@@ -17,6 +17,10 @@ describe('Game Class', () => {
 
   test('Should initialize with the correct empty coorinates.', () => {
     expect(game.getEmptyCoordinate()).toEqual([1, 1]);
+  });
+
+  test('should be able to retrieve current state', () => {
+    expect(game.getRows()).toEqual(startingRows);
   });
 
   test('method moveRight moves the empty slot left.', () => {
@@ -53,6 +57,16 @@ describe('Game Class', () => {
     game.moveUp();
 
     expect(onEndedCallback).toHaveBeenCalledTimes(1);
+  });
+
+  test('instance should always be solvable', () => {
+    let instances = [];
+    for (let i = 0; i < 50; i++) {
+      instances.push(new Game());
+    }
+    expect(every(instances, (instance: Game) => {
+      return Game.isSolvable(instance.getRows());
+    }));
   });
 
   test('static generateRandomRows() should create random rows.', () => {

@@ -5,35 +5,28 @@ import Shortcuts from '../Modules/Shortcuts';
 import Game, { Rows } from '../Modules/Game';
 import Tiles from '../Components/Tiles';
 
-const defaultState = {
-  tiles: [
-    [1, 2, 3, 4],
-    [5, 6, 7, 8],
-    [9, 10, 11, 12],
-    [13, 14, 15, null],
-  ],
-};
-
 type Props = {};
-type State = Readonly<typeof defaultState>;
+interface State {
+  rows: Rows
+}
 
 class TilesContainer extends Component<Props, State> {
   shortcuts: Shortcuts
   game: Game
-  state = cloneDeep(defaultState);
+  state: State
 
   constructor(props: any) {
     super(props);
     this.shortcuts = new Shortcuts();
-    this.game = new Game({
-      tiles: Game.generateRandomTiles(),
-    });
+    this.game = new Game();
     this.game.onChange(this.onChange);
+    this.state = {
+      rows: this.game.getRows(),
+    };
   }
 
-  onChange = (tiles: Rows): void => {
-    console.log('on change');
-    this.setState({ tiles });
+  onChange = (rows: Rows): void => {
+    this.setState({ rows });
   }
 
   onEnded = (): void => {
@@ -72,8 +65,8 @@ class TilesContainer extends Component<Props, State> {
   }
 
   render() {
-    const { tiles } = this.state;
-    return <Tiles tiles={tiles} />;
+    const { rows } = this.state;
+    return <Tiles rows={rows} />;
   }
 }
 

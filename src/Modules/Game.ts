@@ -35,7 +35,12 @@ class Game {
   static generateRandomRows(): Rows {
     let values: Array<Tile> = range(0, 16); // 16 non-inclusive
     // Shuffles and groups into subarrays of length 4.
-    return chunk(shuffle(values), 4);
+    const rows = chunk(shuffle(values), 4);
+    if (Game.isSolvable(rows)) {
+      return rows;
+    } else {
+      return Game.generateRandomRows();
+    }
   }
 
   /**
@@ -84,6 +89,10 @@ class Game {
 
   public onEnd(cb: Function): void {
     this.onEndCallback = cb;
+  }
+
+  public getRows(): Rows {
+    return clone(this.state.rows);
   }
 
   public getEmptyCoordinate(): Coordinate {
