@@ -1,16 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, StatelessComponent } from 'react';
 import styled from 'styled-components';
 
-import TilesContainer from '../containers/TilesContainer';
+import { Rows, Row, Tile } from '../modules/Game';
+import TilesComponent from './Tiles';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="game">
-        <TilesContainer />
-      </div>
-    );
-  }
-}
+const Game_ = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
-export default App;
+type Props = {
+  rows: Rows,
+};
+
+const GameComponent:StatelessComponent<Props> = ({ rows }: Props) => (
+  <Game_>
+    <TilesComponent rows={rows} />
+  </Game_>
+);
+
+export default GameComponent;

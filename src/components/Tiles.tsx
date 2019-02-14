@@ -29,7 +29,7 @@ type Props = {
   rows: Rows,
 };
 
-const Tiles:StatelessComponent<Props> = (props) => (
+const TilesComponent:StatelessComponent<Props> = (props) => (
   <Tiles_ className="rows">
     {props.rows.map((row: Row, rowIndex:number) => (
       <Row_
@@ -53,4 +53,4 @@ const Tiles:StatelessComponent<Props> = (props) => (
   </Tiles_>
 );
 
-export default Tiles;
+export default TilesComponent;

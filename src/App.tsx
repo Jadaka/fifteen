@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import Game from './components/Game';
+import GameContainer from './containers/GameContainer';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <AppContainer className="App">
-        <Game />
+        <GameContainer />
       </AppContainer>
     );
   }

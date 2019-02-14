@@ -1,6 +1,6 @@
-import React, { Component, ReactElement } from 'react';
-import { cloneDeep } from 'lodash';
+import React, { Component } from 'react';
 
+import GameComponent from '../components/Game';
 import Shortcuts from '../modules/Shortcuts';
 import Game, { Rows } from '../modules/Game';
 import Tiles from '../components/Tiles';
@@ -10,7 +10,7 @@ interface State {
   rows: Rows
 }
 
-class TilesContainer extends Component<Props, State> {
+class GameContainer extends Component<Props, State> {
   private shortcuts: Shortcuts
   private game: Game
   state: State
@@ -67,8 +67,8 @@ class TilesContainer extends Component<Props, State> {
 
   render() {
     const { rows } = this.state;
-    return <Tiles rows={rows} />;
+    return <GameComponent rows={rows} />;
   }
 }
 
-export default TilesContainer;
+export default GameContainer;
