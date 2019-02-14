@@ -2,6 +2,9 @@ interface TimerOptions {
   limit: number
   interval?: number
 }
+interface TimerStats {
+  count: number
+}
 
 class Timer {
   constructor({ limit, interval = 1000 }: TimerOptions) {
@@ -11,9 +14,17 @@ class Timer {
   private limit: number;
   private interval: number;
   private tickCount: number = 0;
-  private onTickCallback: Function = () => {};
-  private onEndedCallback: Function = () => {};
+  private onTickCallback: Function = Timer.doNothing;
+  private onEndedCallback: Function = Timer.doNothing;
   private timerId?: number;
+
+  static doNothing() {}
+
+  get stats(): TimerStats {
+    return {
+      count: this.tickCount,
+    };
+  }
 
   public start(): void {
     this.startInternalTimer();
@@ -24,12 +35,8 @@ class Timer {
   }
 
   public reset(): void {
-    if (this.timerId === undefined) {
-      return;
-    }
-
     this.stopInternalTimer();
-    this.resetInteranlState();
+    this.resetTickCount();
   }
 
   public onTick(callback: Function): void {
@@ -37,20 +44,15 @@ class Timer {
   }
 
   public onEnded(callback: Function): void {
-    this.onEndedCallback = callback;
-  }
+    if (this.limit === Infinity) {
+      throw Error('onEnded will not work with a limit of Infinity');
+    }
 
-  private resetTimerId = (): void => {
-    this.timerId = undefined;
+    this.onEndedCallback = callback;
   }
 
   private resetTickCount = (): void => {
     this.tickCount = 0;
-  }
-
-  private resetInteranlState = (): void => {
-    this.resetTimerId();
-    this.resetTickCount();
   }
 
   private handleInterval = (): void => {
@@ -70,8 +72,10 @@ class Timer {
   }
 
   private stopInternalTimer = (): void => {
+    if (!this.timerId) return;
+
     window.clearInterval(this.timerId);
-    this.resetTimerId();
+    this.timerId = undefined;
   }
 
   private onEnd(): void {

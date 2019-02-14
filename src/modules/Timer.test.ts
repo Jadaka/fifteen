@@ -3,13 +3,13 @@ import Timer from './Timer';
 import { wait } from '../test-utils/time';
 
 let timer: Timer;
-const limit: number = 6;
-const interval: number = 10;
-const allowance: number = 5;
-// Add an extra 10ms as allowance.
-const maxTimeout: number = (limit * interval) + 10;
+const limit: number = 3;
+const interval: number = 100;
+// extra buffer
+const allowance: number = 50;
+const maxTimeout: number = (limit * interval) + allowance;
 
-describe('Timer class', () => {
+describe('Timer stopwatch', () => {
   beforeEach(() => {
     timer = new Timer({ limit, interval });
   });
@@ -79,5 +79,23 @@ describe('Timer class', () => {
     await wait(maxTimeout);
 
     expect(endCallback).toHaveBeenCalledTimes(2);
+  });
+
+  test('Should not taken an onEnded callback for an infinite timer', () => {
+    timer = new Timer({ limit: Infinity });
+    const runOnEnded = () => {
+      timer.onEnded(() => {});
+    };
+
+    expect(runOnEnded).toThrow();
+  });
+
+  test('Should retrieve the tick count for an infinite timer', async () => {
+    timer = new Timer({ limit: Infinity, interval });
+    timer.start();
+    await wait(interval * 5); // Should tick 5 times
+    await wait(allowance);
+
+    expect(timer.stats.count).toBe(5);
   });
 });
