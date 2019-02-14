@@ -43,7 +43,7 @@ class GameContainer extends Component<Props, State> {
     console.log('game ended');
   }
 
-  onTimerTick = (count): void => {
+  onTimerTick = (count: number): void => {
     this.setState({ timerCount: count });
   }
 
@@ -92,12 +92,12 @@ class GameContainer extends Component<Props, State> {
   }
 
   render() {
-    const { rows, started } = this.state;
+    const { rows, started, timerCount } = this.state;
     return (
       <GameComponent
         rows={rows}
         started={started}
-        paused={paused}
+        timerCount={timerCount}
       />
     );
   }
