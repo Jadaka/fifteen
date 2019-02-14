@@ -4,9 +4,9 @@ import { wait } from '../test-utils/time';
 
 let timer: Timer;
 const limit: number = 3;
-const interval: number = 100;
+const interval: number = 50;
 // extra buffer
-const allowance: number = 50;
+const allowance: number = 25;
 const maxTimeout: number = (limit * interval) + allowance;
 
 describe('Timer stopwatch', () => {
@@ -14,7 +14,7 @@ describe('Timer stopwatch', () => {
     timer = new Timer({ limit, interval });
   });
 
-  test('should invoke the onEnded callback eventually', async () => {
+  test('Should invoke the onEnded callback eventually.', async () => {
     const endCallback = jest.fn();
 
     timer.onEnded(endCallback);
@@ -24,7 +24,7 @@ describe('Timer stopwatch', () => {
     expect(endCallback).toHaveBeenCalledTimes(1);
   });
 
-  test('should tick the correct number of times', async () => {
+  test('Should tick the correct number of times.', async () => {
     const tickCallback = jest.fn();
 
     timer.onTick(tickCallback);
@@ -34,7 +34,18 @@ describe('Timer stopwatch', () => {
     expect(tickCallback).toHaveBeenCalledTimes(limit);
   });
 
-  test('should correctly stop the timer', async () => {
+  test('Should provide the tick count as an arg to tickCallback.', async () => {
+    let expectedTickCount = 0;
+    const tickCallback = (tickCount: number) => {
+      expectedTickCount++;
+      expect(tickCount).toBe(expectedTickCount);
+    };
+    timer.onTick(tickCallback);
+    timer.start();
+    await wait(maxTimeout);
+  });
+
+  test('Should correctly stop the timer.', async () => {
     const tickCallback = jest.fn();
     timer.onTick(tickCallback);
     timer.start();
@@ -46,7 +57,7 @@ describe('Timer stopwatch', () => {
     expect(tickCallback).toHaveBeenCalledTimes(1);
   });
 
-  test('should correctly stop and start the timer', async () => {
+  test('Should correctly stop and start the timer.', async () => {
     const tickCallback = jest.fn();
     timer.onTick(tickCallback);
 
@@ -81,7 +92,7 @@ describe('Timer stopwatch', () => {
     expect(endCallback).toHaveBeenCalledTimes(2);
   });
 
-  test('Should not taken an onEnded callback for an infinite timer', () => {
+  test('Should not taken an onEnded callback for an infinite timer.', () => {
     timer = new Timer({ limit: Infinity });
     const runOnEnded = () => {
       timer.onEnded(() => {});
@@ -90,11 +101,19 @@ describe('Timer stopwatch', () => {
     expect(runOnEnded).toThrow();
   });
 
-  test('Should retrieve the tick count for an infinite timer', async () => {
+  test('Should retrieve the tick count for an infinite timer.', async () => {
     timer = new Timer({ limit: Infinity, interval });
     timer.start();
-    await wait(interval * 5); // Should tick 5 times
+    await wait(interval * 3); // Should tick 3 times
     await wait(allowance);
+    timer.stop();
+
+    expect(timer.stats.count).toBe(3);
+
+    timer.start();
+    await wait(interval * 2); // Should tick 2 more times
+    await wait(allowance);
+    timer.stop();
 
     expect(timer.stats.count).toBe(5);
   });

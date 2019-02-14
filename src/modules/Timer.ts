@@ -57,7 +57,7 @@ class Timer {
 
   private handleInterval = (): void => {
     this.tickCount++;
-    this.onTickCallback();
+    this.onTickCallback(this.tickCount);
     if (this.tickCount === this.limit) {
       this.onEnd();
     }

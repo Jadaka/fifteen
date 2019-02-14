@@ -9,11 +9,12 @@ const Game_ = styled.div`
   align-items: center;
 `;
 
-type Props = {
-  rows: Rows,
-};
+interface Props {
+  rows: Rows
+  started: boolean
+}
 
-const GameComponent:StatelessComponent<Props> = ({ rows }: Props) => (
+const GameComponent:StatelessComponent<Props> = ({ rows, started }) => (
   <Game_>
     <TilesComponent rows={rows} />
   </Game_>

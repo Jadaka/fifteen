@@ -1,37 +1,55 @@
 import React, { Component } from 'react';
 
 import GameComponent from '../components/Game';
-import Shortcuts from '../modules/Shortcuts';
 import Game, { Rows } from '../modules/Game';
-import Tiles from '../components/Tiles';
+import Shortcuts from '../modules/Shortcuts';
+import Timer from '../modules/Timer';
 
 type Props = {};
 interface State {
+  started: boolean
+  timerCount: number
   rows: Rows
 }
 
 class GameContainer extends Component<Props, State> {
   private shortcuts: Shortcuts
   private game: Game
+  private timer: Timer
   state: State
 
   constructor(props: any) {
     super(props);
-    this.shortcuts = new Shortcuts();
     this.game = new Game();
-    this.game.onChange(this.onChange);
-    this.game.onEnd(this.onEnd);
+    this.shortcuts = new Shortcuts();
+    this.timer = new Timer({ limit: Infinity });
+
+    this.game.onChange(this.onRowsChanged);
+    this.game.onEnd(this.onGameEnded);
+    this.timer.onTick(this.onTimerTick);
+
     this.state = {
+      started: false,
+      timerCount: 0,
       rows: this.game.getRows(),
     };
   }
 
-  onChange = (rows: Rows): void => {
+  onRowsChanged = (rows: Rows): void => {
     this.setState({ rows });
   }
 
-  onEnd = (): void => {
+  onGameEnded = (): void => {
     console.log('game ended');
+  }
+
+  onTimerTick = (count): void => {
+    this.setState({ timerCount: count });
+  }
+
+  start = (): void => {
+    this.timer.start();
+    this.setState({ started: true });
   }
 
   upKeyPressed = (): void => {
@@ -50,14 +68,14 @@ class GameContainer extends Component<Props, State> {
     this.game.moveLeft();
   }
 
-  componentDidMount() {
+  registerShortcuts = (): void => {
     this.shortcuts.addShortcut('ArrowUp', this.upKeyPressed);
     this.shortcuts.addShortcut('ArrowDown', this.downKeyPressed);
     this.shortcuts.addShortcut('ArrowRight', this.rightKeyPressed);
     this.shortcuts.addShortcut('ArrowLeft', this.leftKeyPressed);
   }
 
-  componentWillUnmount() {
+  unregisterShortcuts = (): void => {
     this.shortcuts.removeShortcut('ArrowUp');
     this.shortcuts.removeShortcut('ArrowDown');
     this.shortcuts.removeShortcut('ArrowRight');
@@ -65,9 +83,23 @@ class GameContainer extends Component<Props, State> {
     this.shortcuts.teardown();
   }
 
+  componentDidMount() {
+
+  }
+
+  componentWillUnmount() {
+
+  }
+
   render() {
-    const { rows } = this.state;
-    return <GameComponent rows={rows} />;
+    const { rows, started } = this.state;
+    return (
+      <GameComponent
+        rows={rows}
+        started={started}
+        paused={paused}
+      />
+    );
   }
 }
 
