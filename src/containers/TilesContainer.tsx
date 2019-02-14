@@ -11,8 +11,8 @@ interface State {
 }
 
 class TilesContainer extends Component<Props, State> {
-  shortcuts: Shortcuts
-  game: Game
+  private shortcuts: Shortcuts
+  private game: Game
   state: State
 
   constructor(props: any) {
