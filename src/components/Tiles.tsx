@@ -32,18 +32,11 @@ type Props = {
 const TilesComponent:StatelessComponent<Props> = (props) => (
   <Tiles_ className="rows">
     {props.rows.map((row: Row, rowIndex:number) => (
-      <Row_
-        className="row"
-        key={`row-${rowIndex}`}
-      >
+      <Row_ className="row" key={`row-${rowIndex}`}>
         {row.map((cellValue: Tile, colIndex:number) => {
           const id = `tile-${rowIndex}-${colIndex}`;
           return (
-            <Tile_
-              className="col"
-              id={id}
-              key={id}
-            >
+            <Tile_ className="col" id={id} key={id}>
               {cellValue > 0 ? cellValue : ''}
             </Tile_>
           );

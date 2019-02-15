@@ -24,7 +24,7 @@ class GameContainer extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.shortcuts = new Shortcuts();
-    this.game = new Game(getDebugRows());
+    this.game = new Game();
     this.timer = new Timer({ limit: Infinity });
     this.initModuleListeners();
 
@@ -69,9 +69,10 @@ class GameContainer extends Component<Props, State> {
 
   restart = (): void => {
     this.timer = new Timer({ limit: Infinity });
-    this.game = new Game(getDebugRows());
+    this.game = new Game();
     this.initModuleListeners();
     this.setState({
+      timerCount: 0,
       rows: this.game.getRows(),
     }, this.start);
   }
@@ -98,7 +99,11 @@ class GameContainer extends Component<Props, State> {
   }
 
   spaceKeyPressed = (): void => {
-    const { ended } = this.state;
+    const { started, ended } = this.state;
+    if (started && !ended) {
+      return;
+    }
+
     if (ended) {
       this.restart();
     } else {
