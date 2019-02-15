@@ -5,6 +5,8 @@ import Game, { Rows } from '../modules/Game';
 import Shortcuts from '../modules/Shortcuts';
 import Timer from '../modules/Timer';
 
+import { getDebugRows } from '../debug-utils/game.debug';
+
 type Props = {};
 interface State {
   started: boolean
@@ -21,13 +23,10 @@ class GameContainer extends Component<Props, State> {
 
   constructor(props: any) {
     super(props);
-    this.game = new Game();
     this.shortcuts = new Shortcuts();
+    this.game = new Game(getDebugRows());
     this.timer = new Timer({ limit: Infinity });
-
-    this.game.onChange(this.onRowsChanged);
-    this.game.onEnd(this.onGameEnded);
-    this.timer.onTick(this.onTimerTick);
+    this.initModuleListeners();
 
     this.state = {
       started: false,
@@ -35,6 +34,20 @@ class GameContainer extends Component<Props, State> {
       timerCount: 0,
       rows: this.game.getRows(),
     };
+  }
+
+  initModuleListeners(): void {
+    this.setupGameListeners();
+    this.setupTimerListeners();
+  }
+
+  setupGameListeners(): void {
+    this.game.onChange(this.onRowsChanged);
+    this.game.onEnd(this.onGameEnded);
+  }
+
+  setupTimerListeners(): void {
+    this.timer.onTick(this.onTimerTick);
   }
 
   onRowsChanged = (rows: Rows): void => {
@@ -51,7 +64,16 @@ class GameContainer extends Component<Props, State> {
 
   start = (): void => {
     this.timer.start();
-    this.setState({ started: true });
+    this.setState({ started: true, ended: false });
+  }
+
+  restart = (): void => {
+    this.timer = new Timer({ limit: Infinity });
+    this.game = new Game(getDebugRows());
+    this.initModuleListeners();
+    this.setState({
+      rows: this.game.getRows(),
+    }, this.start);
   }
 
   stop = (): void => {
@@ -76,7 +98,12 @@ class GameContainer extends Component<Props, State> {
   }
 
   spaceKeyPressed = (): void => {
-    this.start();
+    const { ended } = this.state;
+    if (ended) {
+      this.restart();
+    } else {
+      this.start();
+    }
   }
 
   registerShortcuts = (): void => {

@@ -25,7 +25,8 @@ const Message_ = styled.div`
 
 const TimerComponent:StatelessComponent<Props> = (props) => {
   const { ended } = props;
-  const message = ended ? 'Nice!' : 'Press Space to Start.';
+  const message =
+    ended ? 'Nice! Press space to restart.' : 'Press space to start.';
 
   return (
     <TilesOverlay_ className="timer" {...props}>
