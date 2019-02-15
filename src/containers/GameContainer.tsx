@@ -8,6 +8,7 @@ import Timer from '../modules/Timer';
 type Props = {};
 interface State {
   started: boolean
+  ended: boolean
   timerCount: number
   rows: Rows
 }
@@ -30,6 +31,7 @@ class GameContainer extends Component<Props, State> {
 
     this.state = {
       started: false,
+      ended: false,
       timerCount: 0,
       rows: this.game.getRows(),
     };
@@ -40,7 +42,7 @@ class GameContainer extends Component<Props, State> {
   }
 
   onGameEnded = (): void => {
-    console.log('game ended');
+    this.stop();
   }
 
   onTimerTick = (count: number): void => {
@@ -50,6 +52,11 @@ class GameContainer extends Component<Props, State> {
   start = (): void => {
     this.timer.start();
     this.setState({ started: true });
+  }
+
+  stop = (): void => {
+    this.timer.stop();
+    this.setState({ ended: true });
   }
 
   upKeyPressed = (): void => {
@@ -68,11 +75,16 @@ class GameContainer extends Component<Props, State> {
     this.game.moveLeft();
   }
 
+  spaceKeyPressed = (): void => {
+    this.start();
+  }
+
   registerShortcuts = (): void => {
     this.shortcuts.addShortcut('ArrowUp', this.upKeyPressed);
     this.shortcuts.addShortcut('ArrowDown', this.downKeyPressed);
     this.shortcuts.addShortcut('ArrowRight', this.rightKeyPressed);
     this.shortcuts.addShortcut('ArrowLeft', this.leftKeyPressed);
+    this.shortcuts.addShortcut(' ', this.spaceKeyPressed);
   }
 
   unregisterShortcuts = (): void => {
@@ -80,23 +92,25 @@ class GameContainer extends Component<Props, State> {
     this.shortcuts.removeShortcut('ArrowDown');
     this.shortcuts.removeShortcut('ArrowRight');
     this.shortcuts.removeShortcut('ArrowLeft');
+    this.shortcuts.removeShortcut('Space');
     this.shortcuts.teardown();
   }
 
   componentDidMount() {
-
+    this.registerShortcuts();
   }
 
   componentWillUnmount() {
-
+    this.unregisterShortcuts();
   }
 
   render() {
-    const { rows, started, timerCount } = this.state;
+    const { rows, started, timerCount, ended } = this.state;
     return (
       <GameComponent
         rows={rows}
         started={started}
+        ended={ended}
         timerCount={timerCount}
       />
     );

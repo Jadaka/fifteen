@@ -18,19 +18,22 @@ const TilesWrapper_ = styled.div`
 
 interface Props {
   started: boolean
+  ended: boolean
   timerCount: number
   rows: Rows
 }
 
 const GameComponent:StatelessComponent<Props> = ({
-    rows,
-    started,
-    timerCount}) => (
+  rows,
+  started,
+  ended,
+  timerCount
+}) => (
   <Game_ className="game">
     <TimerComponent count={timerCount} />
     <TilesWrapper_>
       <TilesComponent rows={rows} />
-      <TilesOverlay started={started} height={406} width={406} />
+      <TilesOverlay started={started} ended={ended} />
     </TilesWrapper_>
   </Game_>
 );
