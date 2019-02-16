@@ -1,7 +1,8 @@
-import React, { Component, StatelessComponent } from 'react';
+import React, { StatelessComponent } from 'react';
 import styled from 'styled-components';
 
-import { Rows, Row, Tile } from '../modules/Game';
+import AuthControlContainer from '../containers/AuthControlContainer';
+import { Rows } from '../modules/Game';
 import TilesComponent from './Tiles';
 import TimerComponent from './Timer';
 import TilesOverlay from './TilesOverlay';
@@ -27,7 +28,7 @@ const GameComponent:StatelessComponent<Props> = ({
   rows,
   started,
   ended,
-  timerCount
+  timerCount,
 }) => (
   <Game_ className="game">
     <TimerComponent count={timerCount} />
@@ -35,6 +36,7 @@ const GameComponent:StatelessComponent<Props> = ({
       <TilesComponent rows={rows} />
       <TilesOverlay started={started} ended={ended} />
     </TilesWrapper_>
+    <AuthControlContainer />
   </Game_>
 );
 

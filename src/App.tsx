@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { Router } from 'react-router'
 
-import GameContainer from './containers/GameContainer';
+import AppRouting from './AppRouting';
 
-const AppContainer = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-`;
 
 class App extends Component {
   render() {
     return (
-      <AppContainer className="App">
-        <GameContainer />
-      </AppContainer>
+      <AppRouting />
     );
   }
 }

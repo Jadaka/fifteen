@@ -4,6 +4,7 @@ import GameComponent from '../components/Game';
 import Game, { Rows } from '../modules/Game';
 import Shortcuts from '../modules/Shortcuts';
 import Timer from '../modules/Timer';
+import Auth from '../services/Auth';
 
 import { getDebugRows } from '../debug-utils/game.debug';
 
