@@ -17,7 +17,7 @@ const skRotatePlane = keyframes`
 const Spinner = styled.div`
   width: 20px;
   height: 20px;
-  background-color: #ddd;
+  background-color: ${props => props.theme.primary};
 
   -webkit-animation: ${skRotatePlane} 1.2s infinite ease-in-out;
   animation: ${skRotatePlane} 1.2s infinite ease-in-out;
