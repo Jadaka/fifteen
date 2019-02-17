@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Rows, Row, Tile } from '../modules/Game';
 
 const Tiles_ = styled.div`
-  background: #bbb;
+  background: ${props => props.theme.hairline};
   padding: 1px;
 `;
 
@@ -16,7 +16,7 @@ const Row_ = styled.div`
 
 const Tile_ = styled.div`
   align-items: center;
-  background: #fff;
+  background: ${props => props.theme.surface};
   display: flex;
   font-size: 32px;
   height: 100px;

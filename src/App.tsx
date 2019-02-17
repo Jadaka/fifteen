@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 class App extends Component {
   render() {
     return (
-      <ThemeProvider theme={getTheme(ThemeName.light)}>
+      <ThemeProvider theme={getTheme(ThemeName.dark)}>
         <AppRouting />
       </ThemeProvider>
     );

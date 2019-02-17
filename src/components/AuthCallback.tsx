@@ -3,8 +3,14 @@ import { RouteProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Auth from '../services/Auth';
+import Spinner from './Spinner';
 
-const AuthCallback_ = styled.div``;
+const AuthCallback_ = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+`;
 
 class AuthCallback extends Component<RouteProps> {
   auth: Auth = new Auth();
@@ -23,7 +29,7 @@ class AuthCallback extends Component<RouteProps> {
   render() {
     return (
       <AuthCallback_>
-        Loading...
+        <Spinner />
       </AuthCallback_>
     )
   }
