@@ -3,21 +3,24 @@ import styled from 'styled-components';
 
 const Timer_ = styled.div`
   align-items: center;
+  border: 2px solid ${props => props.theme.hint};
+  border-radius: 3px;
   display: flex;
   font-size: 20px;
-  height: 100px;
+  height: 50px;
   justify-content: center;
-  width: 100px;
+  margin: 20px 0;
+  width: 50px;
 `;
 
 interface Props {
-  count: number,
+  value: string,
 };
 
-const TimerComponent:StatelessComponent<Props> = ({ count }) => (
+const Timer:StatelessComponent<Props> = ({ value }) => (
   <Timer_ className="timer">
-    {count}
+    {value}
   </Timer_>
 );
 
-export default TimerComponent;
+export default Timer;

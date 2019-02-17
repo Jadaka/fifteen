@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import AuthControlComponent from '../components/AuthControl';
+import AuthButton from '../components/AuthButton';
 import Auth from '../services/Auth';
 
-class AuthControlContainer extends Component {
+class AuthButtonContainer extends Component {
   auth: Auth = new Auth();
 
   handleControlClick = (): void => {
@@ -22,12 +22,12 @@ class AuthControlContainer extends Component {
 
   render() {
     return (
-      <AuthControlComponent
+      <AuthButton
         isAuthenticated={this.auth.isAuthenticated()}
-        onAuthControlClick={this.handleControlClick}
+        onClick={this.handleControlClick}
       />
     );
   }
 }
 
-export default AuthControlContainer;
+export default AuthButtonContainer;

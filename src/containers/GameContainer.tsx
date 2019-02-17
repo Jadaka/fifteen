@@ -7,34 +7,29 @@ import Timer from '../modules/Timer';
 
 import { getDebugRows } from '../debug-utils/game.debug';
 
-interface Props {
-
-}
+interface Props {}
 
 interface State {
   started: boolean
   ended: boolean
-  timerCount: number
+  timerCount: string
   rows: Rows
 }
 
 class GameContainer extends Component<Props, State> {
-  private shortcuts: Shortcuts
-  private game: Game
-  private timer: Timer
+  private shortcuts: Shortcuts = new Shortcuts();
+  private game: Game = new Game();
+  private timer: Timer = new Timer({ limit: Infinity, interval: 100 });
   state: State
 
   constructor(props: any) {
     super(props);
-    this.shortcuts = new Shortcuts();
-    this.game = new Game();
-    this.timer = new Timer({ limit: Infinity });
     this.initModuleListeners();
 
     this.state = {
       started: false,
       ended: false,
-      timerCount: 0,
+      timerCount: '0.0',
       rows: this.game.getRows(),
     };
   }
@@ -62,7 +57,11 @@ class GameContainer extends Component<Props, State> {
   }
 
   onTimerTick = (count: number): void => {
-    this.setState({ timerCount: count });
+    this.setState({ timerCount: this.formatCount(count) });
+  }
+
+  formatCount(count: number): string {
+    return (count / 10).toFixed(1);
   }
 
   start = (): void => {
@@ -75,7 +74,7 @@ class GameContainer extends Component<Props, State> {
     this.game = new Game();
     this.initModuleListeners();
     this.setState({
-      timerCount: 0,
+      timerCount: "0.0",
       rows: this.game.getRows(),
     }, this.start);
   }

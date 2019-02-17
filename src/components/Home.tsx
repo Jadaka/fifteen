@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from 'react';
 import styled from 'styled-components';
 
-import AuthControlContainer from '../containers/AuthControlContainer';
+import AuthControlContainer from '../containers/AuthButtonContainer';
 
 const Home_ = styled.div``;
 
