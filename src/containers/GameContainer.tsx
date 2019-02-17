@@ -7,7 +7,10 @@ import Timer from '../modules/Timer';
 
 import { getDebugRows } from '../debug-utils/game.debug';
 
-type Props = {};
+interface Props {
+
+}
+
 interface State {
   started: boolean
   ended: boolean

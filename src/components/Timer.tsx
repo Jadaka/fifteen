@@ -10,7 +10,7 @@ const Timer_ = styled.div`
   width: 100px;
 `;
 
-type Props = {
+interface Props {
   count: number,
 };
 

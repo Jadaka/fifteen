@@ -25,7 +25,7 @@ const Tile_ = styled.div`
   width: 100px;
 `;
 
-type Props = {
+interface Props {
   rows: Rows,
 };
 

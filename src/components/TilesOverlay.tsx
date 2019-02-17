@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from 'react';
 import styled, { css } from 'styled-components';
 
-type Props = {
+interface Props {
   started: boolean,
   ended: boolean,
 };
