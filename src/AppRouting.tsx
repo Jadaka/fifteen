@@ -1,21 +1,42 @@
-import React, { StatelessComponent } from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import React, { Component, ClassicComponent } from 'react';
+import { Router, Route, Switch, RouteProps } from 'react-router-dom';
 
 import AuthCallback from './components/AuthCallback';
 import Home from './components/Home';
 import GameContainer from './containers/GameContainer';
+import Page from './components/Page';
 import history from './history';
 
-interface Props {}
+class AppRouting extends Component {
+  AuthCallbackPage = (props: RouteProps) => (
+    <Page>
+      <AuthCallback {...props} />
+    </Page>
+  )
 
-const AppRouting:StatelessComponent<Props> = () => (
-  <Router history={history}>
-    <Switch>
-      <Route exact path="/auth/callback" component={AuthCallback} />
-      <Route exact path="/game" component={GameContainer} />
-      <Route path="/" component={Home} />
-    </Switch>
-  </Router>
-);
+  GamePage = (props: RouteProps) => (
+    <Page>
+      <GameContainer {...props} />
+    </Page>
+  )
+
+  HomePage = (props: RouteProps) => (
+    <Page>
+      <Home {...props} />
+    </Page>
+  )
+
+  render() {
+    return (
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/auth/callback" component={this.AuthCallbackPage} />
+          <Route exact path="/game" component={this.GamePage} />
+          <Route path="/" component={this.HomePage} />
+        </Switch>
+      </Router>
+    )
+  }
+}
 
 export default AppRouting;

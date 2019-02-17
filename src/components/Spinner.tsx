@@ -14,7 +14,7 @@ const skRotatePlane = keyframes`
   }
 `;
 
-const Spinner = styled.div`
+const Spinner:StatelessComponent = styled.div`
   width: 20px;
   height: 20px;
   background-color: ${props => props.theme.primary};
