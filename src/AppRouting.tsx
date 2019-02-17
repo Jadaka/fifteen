@@ -8,21 +8,21 @@ import Page from './components/Page';
 import history from './history';
 
 class AppRouting extends Component {
-  AuthCallbackPage = (props: RouteProps) => (
+  AuthCallbackPage = (routeProps: RouteProps) => (
     <Page>
-      <AuthCallback {...props} />
+      <AuthCallback {...routeProps} />
     </Page>
   )
 
-  GamePage = (props: RouteProps) => (
+  GamePage = (routeProps: RouteProps) => (
     <Page>
-      <GameContainer {...props} />
+      <GameContainer {...routeProps} />
     </Page>
   )
 
-  HomePage = (props: RouteProps) => (
+  HomePage = (routeProps: RouteProps) => (
     <Page>
-      <Home {...props} />
+      <Home {...routeProps} />
     </Page>
   )
 
