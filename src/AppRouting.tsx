@@ -6,6 +6,7 @@ import Home from './components/Home';
 import GameContainer from './containers/GameContainer';
 import Page from './components/Page';
 import history from './history';
+import Dashboard from './components/Dashboard';
 
 class AppRouting extends Component {
   AuthCallbackPage = (routeProps: RouteProps) => (
@@ -26,12 +27,19 @@ class AppRouting extends Component {
     </Page>
   )
 
+  DashboardPage = (routeProps: RouteProps) => (
+    <Page>
+      <Dashboard {...routeProps} />
+    </Page>
+  )
+
   render() {
     return (
       <Router history={history}>
         <Switch>
           <Route exact path="/auth/callback" component={this.AuthCallbackPage} />
           <Route exact path="/game" component={this.GamePage} />
+          <Route exact path="/dashboard" component={this.DashboardPage} />
           <Route path="/" component={this.HomePage} />
         </Switch>
       </Router>
