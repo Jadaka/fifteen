@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 
 import AuthButton from '../components/AuthButton';
 import Auth from '../services/Auth';
+import Store from '../modules/Store';
 
 class AuthButtonContainer extends Component {
   auth: Auth = new Auth();
+  store: Store = new Store();
 
   handleControlClick = (): void => {
     if (this.auth.isAuthenticated()) {
@@ -15,7 +17,7 @@ class AuthButtonContainer extends Component {
   }
 
   componentDidMount(): void {
-    if (localStorage.getItem('isLoggedIn') === 'true') {
+    if (this.store.get('isLoggedIn')) {
       this.auth.renewSession();
     }
   }

@@ -1,5 +1,7 @@
 import auth0, { Auth0DecodedHash } from 'auth0-js';
 
+import Store from '../modules/Store';
+
 import {
   AUTH0_DOMAIN,
   AUTH0_CLIENT_ID,
@@ -9,6 +11,7 @@ import {
 import history from '../history';
 
 class Auth {
+  private store: Store = new Store();
   private accessToken?: string;
   private idToken?: string;
   private expiresAt: number = 0;
@@ -48,8 +51,7 @@ class Auth {
    * expiration.
    */
   setSession(authResult: Auth0DecodedHash) {
-    // Set isLoggedIn flag in localStorage
-    localStorage.setItem('isLoggedIn', 'true');
+    this.store.set('isLoggedIn', true);
 
     // Set the time that the access token will expire at
     let expiresAt: number = (authResult.expiresIn as number * 1000) + new Date().getTime();
@@ -83,7 +85,7 @@ class Auth {
     this.idToken = undefined;
     this.expiresAt = 0;
 
-    localStorage.removeItem('isLoggedIn');
+    this.store.remove('isLoggedIn');
     history.replace(route);
   }
 
