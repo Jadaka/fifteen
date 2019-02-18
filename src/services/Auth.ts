@@ -1,5 +1,11 @@
 import auth0, { Auth0DecodedHash } from 'auth0-js';
 
+import {
+  AUTH0_DOMAIN,
+  AUTH0_CLIENT_ID,
+  AUTH0_REDIRECT_URI,
+  AUTH0_RESPONSE_TYPE,
+  AUTH0_SCOPE } from '../config';
 import history from '../history';
 
 class Auth {
@@ -7,11 +13,11 @@ class Auth {
   private idToken?: string;
   private expiresAt: number = 0;
   private auth0: auth0.WebAuth = new auth0.WebAuth({
-    domain: 'obber.auth0.com',
-    clientID: 'REur5wyNkihyed70nx6D7g5Njlb5cfzx',
-    redirectUri: 'http://localhost:3000/auth/callback',
-    responseType: 'token id_token',
-    scope: 'openid'
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
+    redirectUri: AUTH0_REDIRECT_URI,
+    responseType: AUTH0_RESPONSE_TYPE,
+    scope: AUTH0_SCOPE,
   });
 
   login() {

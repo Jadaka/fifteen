@@ -11,6 +11,7 @@ const Button_ = styled.button`
   border: 0px;
   border-radius: 3px;
   color: ${props => props.theme.surface};
+  cursor: pointer;
   font-size: 14px;
   padding: 6px 12px;
 `;
