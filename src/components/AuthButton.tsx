@@ -1,4 +1,4 @@
-import React, { StatelessComponent, MouseEvent } from 'react';
+import React, { FunctionComponent, MouseEvent } from 'react';
 import styled from 'styled-components';
 
 import Button from './Button';
@@ -12,7 +12,7 @@ const AuthButton_ = styled.div`
   margin: 20px 0;
 `;
 
-const AuthButton:StatelessComponent<Props> = ({
+const AuthButton:FunctionComponent<Props> = ({
   isAuthenticated,
   onClick,
 }) => (

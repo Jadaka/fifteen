@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 const Page_ = styled.div`
@@ -7,7 +7,7 @@ const Page_ = styled.div`
   color: ${props => props.theme.body};
 `;
 
-const Page: StatelessComponent = ({ children }) => (
+const Page: FunctionComponent = ({ children }) => (
   <Page_ className="page">
     {children}
   </Page_>

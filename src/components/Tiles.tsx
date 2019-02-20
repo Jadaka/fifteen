@@ -1,4 +1,4 @@
-import React, { Component, StatelessComponent } from 'react';
+import React, { Component, FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { Rows, Row, Tile } from '../modules/Game';
@@ -29,7 +29,7 @@ interface Props {
   rows: Rows,
 };
 
-const TilesComponent:StatelessComponent<Props> = (props) => (
+const TilesComponent:FunctionComponent<Props> = (props) => (
   <Tiles_ className="rows">
     {props.rows.map((row: Row, rowIndex:number) => (
       <Row_ className="row" key={`row-${rowIndex}`}>

@@ -1,4 +1,4 @@
-import React, { StatelessComponent, MouseEvent, ReactChild } from 'react';
+import React, { FunctionComponent, MouseEvent, ReactChild } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -16,7 +16,7 @@ const Button_ = styled.button`
   padding: 6px 12px;
 `;
 
-const Button:StatelessComponent<Props> = ({ children, onClick }) => (
+const Button:FunctionComponent<Props> = ({ children, onClick }) => (
   <Button_ onClick={onClick}>
     {children}
   </Button_>

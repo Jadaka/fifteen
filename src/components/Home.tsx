@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import AuthControlContainer from '../containers/AuthButtonContainer';
@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 
 const Home_ = styled.div``;
 
-const Home:StatelessComponent<RouteComponentProps> = () => {
+const Home:FunctionComponent<RouteComponentProps> = () => {
   return (
     <Home_ className="home">
       <AuthControlContainer/>

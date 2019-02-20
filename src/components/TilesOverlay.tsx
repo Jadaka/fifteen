@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 
 interface Props {
@@ -23,7 +23,7 @@ const Message_ = styled.div`
   font-size: 28px;
 `;
 
-const TimerComponent:StatelessComponent<Props> = (props) => {
+const TimerComponent:FunctionComponent<Props> = (props) => {
   const { ended } = props;
   const message =
     ended ? 'Nice! Press space to restart.' : 'Press space to start.';

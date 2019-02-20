@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 const Timer_ = styled.div`
@@ -17,7 +17,7 @@ interface Props {
   value: string,
 };
 
-const Timer:StatelessComponent<Props> = ({ value }) => (
+const Timer:FunctionComponent<Props> = ({ value }) => (
   <Timer_ className="timer">
     {value}
   </Timer_>

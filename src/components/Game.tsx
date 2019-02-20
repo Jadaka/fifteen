@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import AuthButtonContainer from '../containers/AuthButtonContainer';
@@ -25,7 +25,7 @@ interface Props {
   rows: Rows
 }
 
-const Game:StatelessComponent<Props> = ({
+const Game:FunctionComponent<Props> = ({
   rows,
   started,
   ended,

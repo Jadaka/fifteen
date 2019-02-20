@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import AuthControlContainer from '../containers/AuthButtonContainer';
@@ -43,7 +43,7 @@ const DashboardFooter_ = styled.div`
   padding: 0 45px;
 `;
 
-const Dashboard:StatelessComponent<RouteComponentProps> = () => {
+const Dashboard:FunctionComponent<RouteComponentProps> = () => {
   return (
     <Dashboard_ className="dashboard">
       <Header_ className="dashboard-header">
