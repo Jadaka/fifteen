@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-typescript": "^7.3.3",
+    "@babel/register": "^7.0.0",
     "@types/auth0-js": "^8.11.11",
     "@types/jest": "23.3.13",
     "@types/lodash": "^4.14.120",
@@ -26,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server:build": "tsc server/index.ts --outDir build-server/",
+    "server:start": "node server/dev-entry.js"
   },
   "eslintConfig": {
     "extends": "react-app"
