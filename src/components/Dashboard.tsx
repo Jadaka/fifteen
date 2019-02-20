@@ -2,7 +2,7 @@ import React, { StatelessComponent } from 'react';
 import styled from 'styled-components';
 
 import AuthControlContainer from '../containers/AuthButtonContainer';
-import { RouteProps } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 const Dashboard_ = styled.div`
   display: grid;
@@ -43,7 +43,7 @@ const DashboardFooter_ = styled.div`
   padding: 0 45px;
 `;
 
-const Dashboard:StatelessComponent<RouteProps> = () => {
+const Dashboard:StatelessComponent<RouteComponentProps> = () => {
   return (
     <Dashboard_ className="dashboard">
       <Header_ className="dashboard-header">

@@ -2,11 +2,11 @@ import React, { StatelessComponent } from 'react';
 import styled from 'styled-components';
 
 import AuthControlContainer from '../containers/AuthButtonContainer';
-import { RouteProps } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 const Home_ = styled.div``;
 
-const Home:StatelessComponent<RouteProps> = () => {
+const Home:StatelessComponent<RouteComponentProps> = () => {
   return (
     <Home_ className="home">
       <AuthControlContainer/>

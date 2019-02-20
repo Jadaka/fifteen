@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RouteProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Auth from '../services/Auth';
@@ -12,13 +12,15 @@ const AuthCallback_ = styled.div`
   height: 100%;
 `;
 
-class AuthCallback extends Component<RouteProps> {
+class AuthCallback extends Component<RouteComponentProps> {
   auth: Auth = new Auth();
 
   handleAuthentication() {
-    const { location } = this.props;
+    const { location, history } = this.props;
     if (location && /access_token|id_token|error/.test(location.hash)) {
-      this.auth.handleAuthentication();
+      this.auth.handleAuthentication(() => {
+        history.replace('/dashboard');
+      });
     }
   }
 

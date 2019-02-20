@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import AuthButton from '../components/AuthButton';
 import Auth from '../services/Auth';
 import Store from '../modules/Store';
 
-class AuthButtonContainer extends Component {
+class AuthButtonContainer extends Component<RouteComponentProps> {
   auth: Auth = new Auth();
   store: Store = new Store();
 
@@ -17,8 +18,12 @@ class AuthButtonContainer extends Component {
   }
 
   componentDidMount(): void {
+    const { location, history } = this.props;
+
     if (this.store.get('isLoggedIn')) {
-      this.auth.renewSession();
+      this.auth.renewSession(() => {
+        history.replace(location.pathname);
+      });
     }
   }
 
@@ -32,4 +37,4 @@ class AuthButtonContainer extends Component {
   }
 }
 
-export default AuthButtonContainer;
+export default withRouter(AuthButtonContainer);

@@ -27,10 +27,11 @@ class Auth {
     this.auth0.authorize();
   }
 
-  handleAuthentication() {
+  handleAuthentication(onAuthenticated: () => void) {
     this.auth0.parseHash((err, authResult: Auth0DecodedHash|null) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        onAuthenticated();
       } else if (err) {
         history.replace('/');
         console.log(`Error logging the user in. err: ${err}`);
@@ -58,17 +59,18 @@ class Auth {
     this.accessToken = authResult.accessToken;
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
-    history.replace('/game');
+    // history.replace('/game');
   }
 
   /**
    * Renews the auth0 session. If the renewal with auth0 errors, the user will
    * be logged out.
    */
-  renewSession() {
+  renewSession(onAuthenticated: () => void) {
     this.auth0.checkSession({}, (err, authResult: Auth0DecodedHash) => {
        if (authResult && authResult.accessToken && authResult.idToken) {
          this.setSession(authResult);
+         onAuthenticated();
        } else if (err) {
          this.logout();
          console.error(err);

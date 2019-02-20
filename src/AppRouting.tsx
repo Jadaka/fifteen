@@ -1,36 +1,41 @@
 import React, { Component, ClassicComponent } from 'react';
-import { Router, Route, Switch, RouteProps } from 'react-router-dom';
+import { Router, Route, Switch, RouteComponentProps } from 'react-router-dom';
 
+import GameContainer from './containers/GameContainer';
+import Authenticated from './components/Authenticated';
 import AuthCallback from './components/AuthCallback';
 import Home from './components/Home';
-import GameContainer from './containers/GameContainer';
 import Page from './components/Page';
 import history from './history';
 import Dashboard from './components/Dashboard';
 
 class AppRouting extends Component {
-  AuthCallbackPage = (routeProps: RouteProps) => (
+  AuthCallbackPage = (routeProps: RouteComponentProps) => (
     <Page>
       <AuthCallback {...routeProps} />
     </Page>
   )
 
-  GamePage = (routeProps: RouteProps) => (
-    <Page>
-      <GameContainer {...routeProps} />
-    </Page>
+  GamePage = (routeProps: RouteComponentProps) => (
+    <Authenticated redirectTo="/">
+      <Page>
+        <GameContainer {...routeProps} />
+      </Page>
+    </Authenticated>
   )
 
-  HomePage = (routeProps: RouteProps) => (
+  HomePage = (routeProps: RouteComponentProps) => (
     <Page>
       <Home {...routeProps} />
     </Page>
   )
 
-  DashboardPage = (routeProps: RouteProps) => (
-    <Page>
-      <Dashboard {...routeProps} />
-    </Page>
+  DashboardPage = (routeProps: RouteComponentProps) => (
+    <Authenticated redirectTo="/">
+      <Page>
+        <Dashboard {...routeProps} />
+      </Page>
+    </Authenticated>
   )
 
   render() {
