@@ -11,6 +11,10 @@ class App {
   public server: http.Server = http.createServer(this.express);
 
   public init() {
+    this.beginListening();
+  }
+
+  private beginListening() {
     const port = process.env.PORT || '3006';
     this.server.listen(port, () => {
       console.log(`listening on port ${port}`);
