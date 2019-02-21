@@ -1,3 +1,3 @@
-import hello from './hello';
+import App from './App';
 
-hello();
+new App();
