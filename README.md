@@ -1,6 +1,6 @@
 # Fifteen
 
-An fifteen puzzle game built for the browser.
+A fifteen puzzle game built for the browser.
 
 # Development
 
