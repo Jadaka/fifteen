@@ -8,5 +8,5 @@ enum HTTPStatusCodes {
 };
 
 export {
-  HTTPStatusCodes,
+  HTTPStatusCodes
 }
