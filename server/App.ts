@@ -1,7 +1,7 @@
 import createExpressInstance, { Express } from 'express';
 import http from 'http';
 
-import rootRouter from './routes/rootRouter';
+import rootRouter from './routes/root-router';
 
 /**
  * App
