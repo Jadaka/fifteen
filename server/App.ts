@@ -1,6 +1,8 @@
 import createExpressInstance, { Express } from 'express';
 import http from 'http';
 
+import rootRouter from './routes/rootRouter';
+
 /**
  * App
  *
@@ -11,7 +13,12 @@ class App {
   public server: http.Server = http.createServer(this.express);
 
   public init() {
+    this.setupRouting();
     this.beginListening();
+  }
+
+  private setupRouting() {
+    this.express.use(rootRouter);
   }
 
   private beginListening() {
