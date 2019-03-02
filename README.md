@@ -6,7 +6,7 @@ A fifteen puzzle game built for the browser.
 
 ```bash
 # create the database by running scripts/create-database.sql
-mysql -u [user] -p[password] < scripts/create-database.sql
+mysql -u [user] -p[password] < scripts/schema.sql
 
 # install dependencies
 yarn

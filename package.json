@@ -43,8 +43,7 @@
     "server:build": "tsc server/index.ts --outDir build-server/",
     "server:start": "node scripts/dev-entry.js server/index.ts",
     "server:start_prod": "node build-server/index.js",
-    "server:test": "jest --config server/jest.config.js",
-    "db:seed": "node scripts/dev-entry.js scripts/seed.js"
+    "server:test": "jest --config server/jest.config.js"
   },
   "eslintConfig": {
     "extends": "react-app"
