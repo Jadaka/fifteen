@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express';
 
 import jwt from 'express-jwt';
-import jwtAuthz from 'express-jwt-authz';
 import jwksRsa from 'jwks-rsa';
 
 import { AUTH0_API_IDENTIFIER } from '../config';
@@ -18,9 +17,6 @@ const checkToken: RequestHandler = jwt({
   algorithms: ['RS256'],
 });
 
-const checkFullScopes: RequestHandler = jwtAuthz(['read:all', 'write:all']);
-
 export {
   checkToken,
-  checkFullScopes,
 };
