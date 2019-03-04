@@ -55,11 +55,11 @@ class Auth {
     this.store.set('isLoggedIn', true);
 
     // Set the time that the access token will expire at
-    let expiresAt: number = (authResult.expiresIn as number * 1000) + new Date().getTime();
+    let expiresAt: number =
+      (authResult.expiresIn as number * 1000) + new Date().getTime();
     this.accessToken = authResult.accessToken;
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
-    // history.replace('/game');
   }
 
   /**
