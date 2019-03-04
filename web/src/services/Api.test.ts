@@ -11,7 +11,7 @@ describe('Api class', () => {
     api = new Api();
   });
 
-  test('should be able to set options', () => {
+  test('should be able to set a base path', () => {
     api.setOptions({
       basePath: '/api',
     });
