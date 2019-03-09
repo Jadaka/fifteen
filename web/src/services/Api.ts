@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
+import { getService, ServiceName } from './globals';
 import Auth from './Auth';
 
 export interface ApiOptions {
@@ -12,8 +13,8 @@ export interface ApiOptions {
  * A wrapper class for calls to fifteen-api.
  */
 class Api {
-  private basePath: string = '/';
-  private auth = new Auth();
+  private basePath: string = '/api';
+  private auth: Auth = getService(ServiceName.AUTH) as Auth;
   private defaultRequestConfig = {
     method: 'get',
   };
@@ -25,16 +26,18 @@ class Api {
   public requestWithAuth(
     method: string, url: string, requestConfig: AxiosRequestConfig = {}) {
     requestConfig.headers =
-      Object.assign(this.getAuthHeaders(), requestConfig.headers);
+      {...this.getAuthHeaders(), ...requestConfig.headers};
     return this.request(method, url, requestConfig);
   }
 
   public request(
     method: string, url: string, requestConfig: AxiosRequestConfig = {}) {
-    const config = Object.assign({}, this.defaultRequestConfig, requestConfig, {
-      method, url: this.basePath + url,
-    });
-
+    const config = {
+      ...this.defaultRequestConfig,
+      ...requestConfig,
+      method,
+      url: this.basePath + url,
+    };
     return axios.request(config);
   }
 

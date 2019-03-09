@@ -68,13 +68,13 @@ class Auth {
    */
   renewSession(onAuthenticated: () => void) {
     this.auth0.checkSession({}, (err, authResult: Auth0DecodedHash) => {
-       if (authResult && authResult.accessToken && authResult.idToken) {
-         this.setSession(authResult);
-         onAuthenticated();
-       } else if (err) {
-         this.logout();
-         console.error(err);
-       }
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
+        onAuthenticated();
+      } else if (err) {
+        this.logout();
+        console.error(err);
+      }
     });
   }
 

@@ -4,9 +4,10 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import AuthButton from '../components/AuthButton';
 import Auth from '../services/Auth';
 import Store from '../modules/Store';
+import { getService, ServiceName } from '../services';
 
 class AuthButtonContainer extends Component<RouteComponentProps> {
-  auth: Auth = new Auth();
+  auth: Auth = getService(ServiceName.AUTH) as Auth;
   store: Store = new Store();
 
   handleControlClick = (): void => {

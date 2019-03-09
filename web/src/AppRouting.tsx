@@ -7,7 +7,7 @@ import AuthCallback from './components/AuthCallback';
 import Home from './components/Home';
 import Page from './components/Page';
 import history from './history';
-import Dashboard from './components/Dashboard';
+import DashboardContainer from './containers/DashboardContainer';
 
 class AppRouting extends Component {
   AuthCallbackPage = (routeProps: RouteComponentProps) => (
@@ -33,7 +33,7 @@ class AppRouting extends Component {
   DashboardPage = (routeProps: RouteComponentProps) => (
     <Authenticated redirectTo="/">
       <Page>
-        <Dashboard {...routeProps} />
+        <DashboardContainer {...routeProps} />
       </Page>
     </Authenticated>
   )

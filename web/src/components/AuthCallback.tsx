@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Auth from '../services/Auth';
 import Spinner from './Spinner';
+import { getService, ServiceName } from '../services';
 
 const AuthCallback_ = styled.div`
   align-items: center;
@@ -13,7 +14,7 @@ const AuthCallback_ = styled.div`
 `;
 
 class AuthCallback extends Component<RouteComponentProps> {
-  auth: Auth = new Auth();
+  auth: Auth = getService(ServiceName.AUTH) as Auth;
 
   handleAuthentication() {
     const { location, history } = this.props;
