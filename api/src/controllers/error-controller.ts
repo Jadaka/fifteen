@@ -12,6 +12,7 @@ export const notFound = (req: Request, res: Response): void => {
 
 export const serverError = (
     err: Error, req: Request, res: Response, next: NextFunction): void => {
+  console.log(err);
   res.status(StatusCodes.ServerError);
   const errorMessage: ErrorMessage = {
     message: 'That item could not be found',
