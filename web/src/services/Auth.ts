@@ -98,6 +98,13 @@ class Auth {
     let expiresAt = this.expiresAt;
     return new Date().getTime() < expiresAt;
   }
+
+  /**
+   * Returns whether the logged in flag is persisted in localStorage.
+   */
+  isPreviouslyLoggedIn(): boolean {
+    return this.store.get('isLoggedIn');
+  }
 }
 
 export default Auth;

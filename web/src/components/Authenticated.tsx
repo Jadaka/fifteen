@@ -1,4 +1,4 @@
-import React, { ComponentType, FunctionComponent, ReactNode, ReactElement } from 'react';
+import React, { Component, ComponentType, FunctionComponent, ReactNode, ReactElement } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -9,17 +9,34 @@ interface Props {
   redirectTo: string,
 }
 
+interface State {
+  authChecked: boolean,
+}
 
-const Authenticated:FunctionComponent<Props> = ({
-  children,
-  redirectTo,
-}) => {
-  const auth: Auth = getService(ServiceName.AUTH) as Auth;
-  if (!auth.isAuthenticated()) {
-    return React.Children.only(children) as ReactElement<any>;
+class Authenticated extends Component<Props, State> {
+  private auth: Auth = getService(ServiceName.AUTH) as Auth;
+
+  componentDidMount() {
+    if (!this.auth.isAuthenticated() && this.auth.isPreviouslyLoggedIn()) {
+      this.auth.renewSession(() => {
+        this.forceUpdate();
+      });
+    }
   }
 
-  return <Redirect to={redirectTo} />;
-};
+  render() {
+    const { children, redirectTo } = this.props;
+
+    if (this.auth.isAuthenticated()) {
+      return React.Children.only(children) as ReactElement<any>;
+    }
+
+    if (this.auth.isPreviouslyLoggedIn()) {
+      return <div>Loading...</div>
+    }
+
+    return <Redirect to={redirectTo} />;
+  }
+}
 
 export default Authenticated;

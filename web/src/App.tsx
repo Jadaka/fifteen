@@ -8,8 +8,8 @@ import { Auth, Api, setService, ServiceName } from './services';
 interface AppProps {}
 
 class App extends Component {
-  api: Api;
-  auth: Auth;
+  private api: Api;
+  private auth: Auth;
   constructor(props: AppProps) {
     super(props);
 
