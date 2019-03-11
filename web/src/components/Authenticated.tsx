@@ -1,6 +1,5 @@
 import React, { Component, ComponentType, FunctionComponent, ReactNode, ReactElement } from 'react';
 import { Redirect } from 'react-router-dom';
-import styled from 'styled-components';
 
 import Auth from '../services/Auth';
 import { getService, ServiceName } from '../services';

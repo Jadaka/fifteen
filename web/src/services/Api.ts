@@ -43,7 +43,7 @@ class Api {
 
   private getAuthHeaders() {
     return {
-      Authorization: `Bearer ${this.auth.getAccessToken()}`,
+      authorization: `Bearer ${this.auth.getAccessToken()}`,
     };
   }
 }

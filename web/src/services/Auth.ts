@@ -3,6 +3,7 @@ import auth0, { Auth0DecodedHash } from 'auth0-js';
 import Store from '../modules/Store';
 
 import {
+  AUTH0_API_IDENTIFIER,
   AUTH0_DOMAIN,
   AUTH0_CLIENT_ID,
   AUTH0_REDIRECT_URI,
@@ -10,12 +11,15 @@ import {
   AUTH0_SCOPE } from '../config';
 import history from '../history';
 
+console.log('AUTH0_API_IDENTIFIER = ', AUTH0_API_IDENTIFIER);
+
 class Auth {
   private store: Store = new Store();
   private accessToken?: string;
   private idToken?: string;
   private expiresAt: number = 0;
   private auth0: auth0.WebAuth = new auth0.WebAuth({
+    audience: AUTH0_API_IDENTIFIER,
     domain: AUTH0_DOMAIN,
     clientID: AUTH0_CLIENT_ID,
     redirectUri: AUTH0_REDIRECT_URI,

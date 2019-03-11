@@ -15,7 +15,7 @@ export const serverError = (
   console.log(err);
   res.status(StatusCodes.ServerError);
   const errorMessage: ErrorMessage = {
-    message: 'That item could not be found',
+    message: 'Internal Server Error',
   };
   res.json(errorMessage);
 };

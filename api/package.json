@@ -33,8 +33,11 @@
   },
   "scripts": {
     "build": "babel src --out-dir build --extensions \".ts,.tsx\"",
-    "start": "node scripts/dev-entry.js src/index.ts",
+    "start": "nodemon scripts/dev-entry.js src/index.ts",
     "start:prod": "node build/index.js",
     "test": "jest --config jest.config.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }
